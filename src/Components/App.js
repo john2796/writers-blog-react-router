@@ -9,7 +9,9 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const writers = await (await fetch("http://localhost:3004/writers")).json();
+    const writers = await (await fetch(
+      "http://localhost:3004/writers?_embed=texts"
+    )).json();
     console.log(writers);
     this.setState({ writers });
   }

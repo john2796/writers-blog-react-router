@@ -20,14 +20,14 @@ const Writers = ({ match: { url }, writers }) => (
     />
     <Route
       path={`${url}/:writerId`}
-      render={({ match }) => {
+      render={props => {
         const writer = writers.find(
-          writer => writer.id === match.params.writerId
+          ({ id }) => id === props.match.params.writerId
         );
         if (!writer) {
           return <NotFound />;
         }
-        return <Writer {...writer} />;
+        return <Writer {...props} {...writer} />;
       }}
     />
   </Fragment>
