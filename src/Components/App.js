@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Writers from "./Writers/Index";
+import { NotFound } from "./Errors";
 
 class App extends Component {
   state = {
@@ -29,12 +30,14 @@ class App extends Component {
           </ul>
 
           <hr />
-
-          <Route exact path="/" render={() => <div>Home</div>} />
-          <Route
-            path="/writers"
-            render={props => <Writers {...props} writers={writers} />}
-          />
+          <Switch>
+            <Route exact path="/" render={() => <div>Home</div>} />
+            <Route
+              path="/writers"
+              render={props => <Writers {...props} writers={writers} />}
+            />
+            <Route render={() => <NotFound />} />
+          </Switch>
         </Fragment>
       </Router>
     );
