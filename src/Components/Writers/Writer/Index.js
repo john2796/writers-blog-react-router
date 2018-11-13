@@ -22,7 +22,7 @@ const Writer = ({
       <p>{description}</p>
       <ul>
         {texts.map(({ id, title }) => (
-          <li>
+          <li key={id}>
             <Link to={`${url}/texts/${id}`}>{title}</Link>
           </li>
         ))}

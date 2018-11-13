@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Writers from "./Writers/Index";
 import { NotFound } from "./Errors";
+import Layout from "./Layout/Index";
 
 class App extends Component {
   state = {
@@ -12,7 +13,7 @@ class App extends Component {
     const writers = await (await fetch(
       "http://localhost:3004/writers?_embed=texts"
     )).json();
-    console.log(writers);
+
     this.setState({ writers });
   }
 
@@ -21,25 +22,16 @@ class App extends Component {
     return (
       <Router>
         <Fragment>
-          <h1>React Router v4 Tutorial </h1>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/writers">Writers</Link>
-            </li>
-          </ul>
-
-          <hr />
-          <Switch>
-            <Route exact path="/" render={() => <div>Home</div>} />
-            <Route
-              path="/writers"
-              render={props => <Writers {...props} writers={writers} />}
-            />
-            <Route render={() => <NotFound />} />
-          </Switch>
+          <Layout writers={writers}>
+            <Switch>
+              <Route exact path="/" render={() => <div>Home</div>} />
+              <Route
+                path="/writers"
+                render={props => <Writers {...props} writers={writers} />}
+              />
+              <Route render={() => <NotFound />} />
+            </Switch>
+          </Layout>
         </Fragment>
       </Router>
     );
